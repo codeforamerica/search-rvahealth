@@ -1,3 +1,4 @@
+// search.rvahealth.org functions
 var list, source, template, serviceType, alink, search, tt;
 
 function init() {
