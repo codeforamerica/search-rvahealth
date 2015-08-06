@@ -97,6 +97,7 @@ function listLoop() {
   $('#services-list').hide();
 
   // loop throught the different sheets
+  var c = 0;
   for (var key in list) {
 
     // let's run this IIFE function to keep our 
@@ -106,6 +107,10 @@ function listLoop() {
 
       // name of the service, originally from the sheet name
       serviceType = key.toString();
+
+      if (!c) {
+        createFilter('All', 'all');
+      }
 
       // create a filter button for each serviceType
       createFilter(serviceType, sanitize(serviceType));
@@ -117,7 +122,7 @@ function listLoop() {
         })(sheet.elements[s]);
       }
       sheet.elements.forEach(handleService);
-      
+      c++;
     })(list[key]);
 
   }
@@ -159,6 +164,9 @@ function createFilter(type, sanitized) {
   var filter = document.createElement('button');
   filter.innerHTML = type;
   filter.className = 'service-filter';
+  if (type==='All') {
+    filter.className += ' active';
+  }
   filter.setAttribute('data', sanitized);
   filter.setAttribute('type', 'button');
   filter.addEventListener('click', filterClick, false);
