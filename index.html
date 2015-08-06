@@ -26,7 +26,12 @@
       </div>
 
       <!-- filters -->
-      <div id="services-filter" class="btn" role="group"></div>
+      <div id="services-filter" class="">
+        <select id="service-filter-select" name="service-filter-mobile" onchange="doTheFilter(this.options[this.selectedIndex].value);">
+          <option value="all">All</option>
+        </select>
+        <button class="service-filter" data="all" type="button">All</button>
+      </div>
 
       <p>The following list of services comes from <a href="https://docs.google.com/a/codeforamerica.org/spreadsheets/d/1liPb1u_Z09Du8L--OjNWl_zZi7KE0_-ejIHw5OfkslQ/edit#gid=863180525">this Google spreadsheet</a> maintained by the <a href="http://www.societyhealth.vcu.edu/">Center on Society and Health</a> at VCU. The application is a project by the <a href="http://rva.codeforamerica.org">2015 Richmond Fellows</a> at <a href="http://codeforamerica.org">Code for America</a>.</p>
 
@@ -34,13 +39,12 @@
     </div>
 
     <!-- services -->
-    <ul id="services-list" class="list"></ul>
-
-    <!-- loading spinner -->
-    <div id="loader">
-      <i class="fa fa-refresh fa-spin"></i>
-      <p>Loading</p>
-    </div>
+    <ul id="services-list" class="list">
+      <div id="loader">
+        <i class="fa fa-refresh fa-spin"></i>
+        <p>Loading</p>
+      </div>
+    </ul>
 
   </div>
 

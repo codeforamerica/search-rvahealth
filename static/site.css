@@ -32,11 +32,6 @@ SEARCH & FILTERS
 
 + + + + + + + + + + + */
 .sidebar {
-  position: fixed;
-  left: 0;
-  width: 320px;
-  top: 0;
-  bottom: 0;
   background: #fff;
   padding: 1px 20px;
 }
@@ -58,9 +53,6 @@ SEARCH & FILTERS
   border-radius: 0px;
   font-size:1em;
 }
-#services-filter {
-  margin-left: 20px;
-}
 .service-filter {
   position: relative;
   text-transform:uppercase;
@@ -74,6 +66,7 @@ SEARCH & FILTERS
   display: block;
   width: 100%;
   text-align: left;
+  display: none;
 }
 .service-filter:before {
   position: absolute;
@@ -97,6 +90,39 @@ SEARCH & FILTERS
   color: #2ECC40;
 }
 
+#service-filter-select {
+  height: 40px;
+  font-size: 30px;
+  padding: 20px;
+  width: 100%;
+}
+@media (min-width: 960px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    width: 320px;
+    top: 0;
+    bottom: 0;
+  }
+  .service-filter {
+    display: block;
+  }
+  #services-filter {
+    margin-left: 20px;
+  }
+  #service-filter-select {
+    display: none;
+  } 
+  #services-list {
+    position: absolute;
+    left: 320px;
+    padding: 20px;
+    margin: 0;
+    top: 0;
+    right: 0;
+  }
+}
+
 
 /* + + + + + + + + + + +
 
@@ -104,12 +130,6 @@ SERVICE ITEMS
 
 + + + + + + + + + + + */
 #services-list {
-  position: absolute;
-  left: 320px;
-  padding: 20px;
-  margin: 0;
-  top: 0;
-  right: 0;
   background: #1fa67a;
   list-style-type: none;
   padding: 0;
@@ -169,7 +189,7 @@ LOADING SPINNER
 + + + + + + + + + + + */
 #loader {
   display:block;
-  margin: 50px 0px 0px 320px;
+  margin: 50px auto 0px;
   text-align:center;
 }
 #loader.loaded {
