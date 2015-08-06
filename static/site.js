@@ -96,10 +96,8 @@ function listLoop() {
   // hide the services list initially so we can fade in
   $('#services-list').hide();
 
-  // set the 'all' filter up first before the loop
-  firstFilter();
-
   // loop throught the different sheets
+  var c = 0;
   for (var key in list) {
 
     // let's run this IIFE function to keep our 
@@ -109,6 +107,10 @@ function listLoop() {
 
       // name of the service, originally from the sheet name
       serviceType = key.toString();
+
+      if (!c) {
+        createFilter('All', 'all');
+      }
 
       // create a filter button for each serviceType
       createFilter(serviceType, sanitize(serviceType));
@@ -120,7 +122,7 @@ function listLoop() {
         })(sheet.elements[s]);
       }
       sheet.elements.forEach(handleService);
-      
+      c++;
     })(list[key]);
 
   }
@@ -155,26 +157,28 @@ function handleService(service) {
   }
 }
 
-function firstFilter() {
-  var servicesFilterList = document.getElementById('services-filter');
-  var all = document.createElement('button');
-  all.innerHTML = 'All';
-  all.className = 'service-filter btn btn-success active';
-  all.setAttribute('data', 'all');
-  all.setAttribute('type', 'button');
-  all.addEventListener('click', filterClick, false);
-  servicesFilterList.appendChild(all);
-}
-
 function createFilter(type, sanitized) {
+  
+  // button for desktop
   var servicesFilterList = document.getElementById('services-filter');
   var filter = document.createElement('button');
   filter.innerHTML = type;
-  filter.className = 'btn service-filter';
+  filter.className = 'service-filter';
+  if (type==='All') {
+    filter.className += ' active';
+  }
   filter.setAttribute('data', sanitized);
   filter.setAttribute('type', 'button');
   filter.addEventListener('click', filterClick, false);
   servicesFilterList.appendChild(filter);
+
+  // select option for mobile
+  var sel = document.getElementById('service-filter-select');
+  var opt = document.createElement('option');
+  opt.setAttribute('value', sanitized)
+  opt.innerHTML = type;
+  sel.appendChild(opt);
+
 }
 
 function sanitize(string) {
@@ -188,16 +192,20 @@ function filterClick() {
   // using jQuery here for simplicity
   if(!$(this).hasClass('active')) {
     var show = $(this).attr('data');
+    doTheFilter(show);
     $('.service-filter').removeClass('active');
     $(this).addClass('active');
-    if(show=='all') {
-      $('.service').show();  
-    } else {
-      $('.service').hide();
-      $('.'+show).show();
-    }
-  }  
+  }
 
+}
+
+function doTheFilter(fil) {
+  if(fil=='all') {
+    $('.service').show();  
+  } else {
+    $('.service').hide();
+    $('.'+fil).show();
+  }
 }
 
 window.onload = init();
